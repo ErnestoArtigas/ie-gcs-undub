@@ -1,2 +1,4 @@
 .vscode
+lib/*
+essential_replaced_files.txt
 src/__pycache__
