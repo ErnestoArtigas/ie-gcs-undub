@@ -82,11 +82,11 @@ def main():
 
   print("Unpacking japanese rom...")
   unpack_cia(japanese_rom_file_name, absolute_path_japanese_rom)
-  print_green_text("Unpacking japanese rom completed.", "\n")
+  print_green_text("Unpacking japanese rom completed.\n")
 
   print("Unpacking european rom...")
   unpack_cia(european_rom_file_name, absolute_path_european_rom)
-  print_green_text("Unpacking european rom completed.", "\n")
+  print_green_text("Unpacking european rom completed.\n")
 
 
   replace_european_romfs_files(f"{japanese_rom_file_name}_unpacked/ExtractedRomFS/snd/product/stream", f"{european_rom_file_name}_unpacked/ExtractedRomFS/snd/product/stream")
