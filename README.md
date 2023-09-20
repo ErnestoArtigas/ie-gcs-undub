@@ -7,8 +7,6 @@ This project is aim to generate an European CIA file with Japanese dubbing. It t
 - Extracting both CIA files into distinct folders, Decrypting the CCIs and RomFS of both roms.
 
 - Iterating into the European ```romfs/snd/product/stream``` folder and replacing the files that exists in the Japanese release.
-  - It for the moment only verify if files with prefixes (en, fr, ...) exists without prefix in the Japanese release and move the Japanese version into the European folder, renaming it with the proper prefix.
-  - This method doesn't copy the credits cutscene's music and doesn't copy the music from the Japanese release. They are the same music, however the sound is lower in Japanese. When modding the game with this method, some voices can be too low because of the European music higher volume.
 
 - Repacking the European RomFS, the CCIs and repacking everything into a CIA file.
 
@@ -75,6 +73,8 @@ There are three missing 4 missing files in the Japanese release, this is the lis
 - se_ev08_0260.bcstm = Ambient crowd.
 
 Because of the method of replacing only the sound file with regional prefix, the credits songs are not copied over the undubbed. This will be quickly fix.
+
+This method doesn't copy the credits cutscene's music and doesn't copy the music from the Japanese release. They are the same music, however the sound is lower in Japanese. When modding the game with this method, some voices can be too low because of the European music higher volume.
 
 ## Roots
 
