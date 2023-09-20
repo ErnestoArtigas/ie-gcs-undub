@@ -12,27 +12,31 @@ This project is aim to generate an European CIA file with Japanese dubbing. It t
 
 - Repacking the European RomFS, the CCIs and repacking everything into a CIA file.
 
-## Roots
-
-This project was born when extracting the game files to get the music files. I felt an undubbing would be a good project to work my Python skills and working with subprocesses. I however found a project much more robust, replacing in every scripts the translated names of characters, techniques and places with their Japanese original names.
-
-[Here is the link](https://gbatemp.net/threads/inazuma-eleven-go-2-chrono-stone-neppu-raimei-complete-undub-v3.593505/), if you want to play that version.
-
-This version is more basic but should be crash free, because of the simplier audio replacing.
-
 
 ## Dependencies
 
-**Libraries** :
-- [3dstool](https://github.com/dnasdw/3dstool)
-- [ctrtool](https://github.com/3DSGuy/Project_CTR/releases/tag/ctrtool-v1.2.0)
-- [makerom](https://github.com/3DSGuy/Project_CTR/releases/tag/makerom-v0.18.3)
-
-**Python modules** :
+1 - Python modules :
 - colorama
 - yaspin
 - python-dotenv
 - optparse
+
+The python modules are listed in the [requirements.txt](requirements.txt) you can install it with pip :
+
+```
+python -m pip install -r requirements.txt
+```
+
+2 - Libraries :
+- [3dstool](https://github.com/dnasdw/3dstool)
+- [ctrtool](https://github.com/3DSGuy/Project_CTR/releases/tag/ctrtool-v1.2.0)
+- [makerom](https://github.com/3DSGuy/Project_CTR/releases/tag/makerom-v0.18.3)
+
+A script was written to download and set the env file with the right values. The script is cross-plateform.
+
+```
+python setup-librairies.py
+```
 
 ## Usage
 
@@ -47,7 +51,7 @@ Options:
                         Path of the european rom
 ```
 
-### Roms
+#### Roms
 Here are the MD5 of the files used for testing this program. They were all extracted from a modded 3DS with GodMode9. There shouldn't be problems of mismatch version, this list is just for giving more informations.
 
 - **Inazuma Eleven Go - Chrono Stone - Neppuu.cia** : 5d1a0250d2b78bdeb61adf99ea3a1291
@@ -58,7 +62,7 @@ Here are the MD5 of the files used for testing this program. They were all extra
 
 You can use a Neppuu rom for undubbing Thunderflash and vice versa, both games have the audio for both game.
 
-### Libraries
+#### Libraries
 
 You need to download the three programs listed in [the dependencies section](#dependencies). Edit the .env file and changed the path for the location of the three programs. You can enter an absolute path to the program or place them in the ```lib``` folder and add a relative path in the .env.
 
@@ -72,6 +76,14 @@ There are three missing 4 missing files in the Japanese release, this is the lis
 
 Because of the method of replacing only the sound file with regional prefix, the credits songs are not copied over the undubbed. This will be quickly fix.
 
+## Roots
+
+This project was born when extracting the game files to get the music files. I felt an undubbing would be a good project to work my Python skills and working with subprocesses. I however found a project much more robust, replacing in every scripts the translated names of characters, techniques and places with their Japanese original names.
+
+[Here is the link](https://gbatemp.net/threads/inazuma-eleven-go-2-chrono-stone-neppu-raimei-complete-undub-v3.593505/), if you want to play that version.
+
+This version is more basic but should be crash free, because of the simplier audio replacing.
+
 ## Credits
 
-The extracting and repacking of CIA files scripts originates from [Asia81's HackingToolkit9DS](https://github.com/Asia81/HackingToolkit9DS) project. Because I had some issues when trying to use it on another Windows installation, I translated his batch scripts into a Python script, ```managing_cia.py```.
+The extracting and repacking of CIA files scripts originates from [Asia81's HackingToolkit9DS](https://github.com/Asia81/HackingToolkit9DS) project. Because I had some issues when trying to use it on another Windows installation, I translated his batch scripts into a Python script, [managing_cia.py](src/managing_cia.py).
