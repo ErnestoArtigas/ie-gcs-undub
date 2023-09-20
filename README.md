@@ -15,12 +15,7 @@ This project is aim to generate an European CIA file with Japanese dubbing. It t
 
 ## Dependencies
 
-**Libraries** :
-- [3dstool](https://github.com/dnasdw/3dstool)
-- [ctrtool](https://github.com/3DSGuy/Project_CTR/releases/tag/ctrtool-v1.2.0)
-- [makerom](https://github.com/3DSGuy/Project_CTR/releases/tag/makerom-v0.18.3)
-
-**Python modules** :
+1 - Python modules :
 - colorama
 - yaspin
 - python-dotenv
@@ -30,6 +25,17 @@ The python modules are listed in the [requirements.txt](requirements.txt) you ca
 
 ```
 python -m pip install -r requirements.txt
+```
+
+2 - Libraries :
+- [3dstool](https://github.com/dnasdw/3dstool)
+- [ctrtool](https://github.com/3DSGuy/Project_CTR/releases/tag/ctrtool-v1.2.0)
+- [makerom](https://github.com/3DSGuy/Project_CTR/releases/tag/makerom-v0.18.3)
+
+A script was written to download and set the env file with the right values. The script is cross-plateform.
+
+```
+python setup-librairies.py
 ```
 
 ## Usage
