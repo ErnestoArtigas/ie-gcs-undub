@@ -3,3 +3,8 @@ venv
 lib/*
 essential_replaced_files.txt
 src/__pycache__
+*_unpacked
+
+build
+dist
+main.spec

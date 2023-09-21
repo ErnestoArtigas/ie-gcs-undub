@@ -31,7 +31,7 @@ def extract_tar_gz_file(lib_path, tar_gz_file):
     except Exception as error:
       spinner.fail("❌")
       print_red_text(str(error))
-      exit(1)
+      sys.exit(1)
 
 
 def extract_zip_file(lib_path, zip_file):
@@ -43,7 +43,7 @@ def extract_zip_file(lib_path, zip_file):
     except Exception as error:
       spinner.fail("❌")
       print_red_text(str(error))
-      exit(1)
+      sys.exit(1)
 
 
 def create_download_links_dictionary():
