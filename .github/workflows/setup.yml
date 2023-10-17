@@ -5,5 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to test
     steps:
-      - name: First step
-        run: echo "Hello"
+      - name: List all current files
+        run: ls
