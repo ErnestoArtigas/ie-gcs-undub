@@ -114,7 +114,7 @@ def main():
 
   # Update the env file with the right executable.
   for key in download_links:
-    set_env_variable(key, os.path.abspath(download_links[key]))
+    set_env_variable(key, download_links[key])
 
 
 if __name__ == "__main__":
