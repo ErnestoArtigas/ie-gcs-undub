@@ -5,5 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to test
     steps:
+      - name: checkout repo
+        uses: actions/checkout@v2.3.4
       - name: List all current files
         run: ls
