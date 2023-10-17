@@ -33,7 +33,7 @@ python -m pip install -r requirements.txt
 A script was written to download and set the env file with the right values. The script is cross-plateform.
 
 ```
-python setup-librairies.py
+python setup-libraries.py
 ```
 
 ## Usage

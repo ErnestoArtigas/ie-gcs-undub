@@ -17,4 +17,4 @@ jobs:
         run: python -m pip install -r requirements.txt
 
       - name: Install librairies
-        run: python setup-librairies.py
+        run: python setup-libraries.py
