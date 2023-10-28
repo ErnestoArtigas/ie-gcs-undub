@@ -22,7 +22,7 @@ jobs:
       - name: Bundling the executable
         run: pyinstaller --onefile src/main.py
 
-      - name: Zipping the executable
+      - name: Packing the executable
         run: |
           mkdir ie-gcs-undub-linux
           mkdir ie-gcs-undub-linux/lib
@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ie-gcs-undub-linux
-          path: ie-gcs-undub-linux.zip
+          path: ie-gcs-undub-linux
