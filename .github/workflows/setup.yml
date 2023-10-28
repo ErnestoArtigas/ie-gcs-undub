@@ -14,10 +14,18 @@ jobs:
           python-version: '3.12'
 
       - name: Install python requirements
-        run: python -m pip install -r requirements.txt
+        run: python -m pip install pyinstaller -r requirements.txt
 
       - name: Install librairies
         run: python setup-libraries.py
 
-      - name: Verify installation
-        run: ls
+      - name: Bundling the executable
+        run: pyinstaller --onefile src/main.py
+
+      - name: Packing the executable
+        run: |
+          mkdir ie-gcs-undub-linux
+          mv dist/main ie-gcs-undub-linux/main
+          mv .env ie-gcs-undub-linux/.env
+          mv lib ie-gcs-undub-linux/lib
+          ls -r ie-gcs-undub-linux
