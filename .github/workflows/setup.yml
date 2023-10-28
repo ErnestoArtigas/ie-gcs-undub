@@ -2,8 +2,13 @@ on: [push]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    name: An ubuntu runner
+    runs-on: ${{ matrix.os }}
+    name: A multi os runner
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
     steps:
       - name: checkout repo
         uses: actions/checkout@v2.3.4
@@ -23,6 +28,7 @@ jobs:
         run: pyinstaller --onefile src/main.py
 
       - name: Packing the executable
+        if: matrix.os == 'ubuntu-latest'
         run: |
           mkdir ie-gcs-undub-linux
           mkdir ie-gcs-undub-linux/lib
@@ -31,8 +37,26 @@ jobs:
           mv lib/* ie-gcs-undub-linux/lib
           zip -r ie-gcs-undub-linux.zip ie-gcs-undub-linux/
 
-      - name: Archive linux binary artifact
+      - name: Packing the executable
+        if: matrix.os == 'macos-latest'
+        run: |
+          mkdir ie-gcs-undub-macos
+          mkdir ie-gcs-undub-macos/lib
+          mv dist/main ie-gcs-undub-macos/main
+          mv .env ie-gcs-undub-macos/.env
+          mv lib/* ie-gcs-undub-macos/lib
+          zip -r ie-gcs-undub-macos.zip ie-gcs-undub-macos/
+
+      - name: Archive Linux binary artifact
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v3
         with:
           name: ie-gcs-undub-linux
           path: ie-gcs-undub-linux
+
+      - name: Archive MacOS binary artifact
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ie-gcs-undub-macos
+          path: ie-gcs-undub-macos
