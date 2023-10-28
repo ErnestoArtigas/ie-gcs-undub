@@ -27,5 +27,5 @@ jobs:
           mkdir ie-gcs-undub-linux
           mv dist/main ie-gcs-undub-linux/main
           mv .env ie-gcs-undub-linux/.env
-          mv lib ie-gcs-undub-linux/lib
+          mv lib/* ie-gcs-undub-linux/lib
           ls -r ie-gcs-undub-linux
