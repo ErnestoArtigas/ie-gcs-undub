@@ -1,7 +1,7 @@
 on: [push]
 
 jobs:
-  test:
+  building-multi-os-artefacts:
     runs-on: ${{ matrix.os }}
     name: A multi os runner
 
@@ -83,3 +83,17 @@ jobs:
         with:
           name: ie-gcs-undub-macos
           path: ie-gcs-undub-macos
+
+  create-release:
+    name: Create a release with the previous built artefacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4.1.1
+
+      - name: Download artefacts
+        uses: actions/download-artifact@v3
+        
+      - name: Display structure of downloaded files
+        run: ls -R
