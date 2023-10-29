@@ -7,7 +7,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: checkout repo
@@ -37,16 +37,6 @@ jobs:
           mv lib/* ie-gcs-undub-linux/lib
           # zip -r ie-gcs-undub-linux.zip ie-gcs-undub-linux/
 
-      - name: Packing the MacOS executable
-        if: matrix.os == 'macos-latest'
-        run: |
-          mkdir ie-gcs-undub-macos
-          mkdir ie-gcs-undub-macos/lib
-          mv dist/main ie-gcs-undub-macos/main
-          mv .env ie-gcs-undub-macos/.env
-          mv lib/* ie-gcs-undub-macos/lib
-          # zip -r ie-gcs-undub-macos.zip ie-gcs-undub-macos/
-
       - name: Packing the Windows executable
         if: matrix.os == 'windows-latest'
         run: |
@@ -57,6 +47,16 @@ jobs:
           mv lib/ ie-gcs-undub-windows/lib
           # zip -r ie-gcs-undub-windows.zip ie-gcs-undub-windows/
 
+      - name: Packing the MacOS executable
+        if: matrix.os == 'macos-latest'
+        run: |
+          mkdir ie-gcs-undub-macos
+          mkdir ie-gcs-undub-macos/lib
+          mv dist/main ie-gcs-undub-macos/main
+          mv .env ie-gcs-undub-macos/.env
+          mv lib/* ie-gcs-undub-macos/lib
+          # zip -r ie-gcs-undub-macos.zip ie-gcs-undub-macos/
+
       - name: Archive Linux binary artifact
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v3
@@ -64,16 +64,16 @@ jobs:
           name: ie-gcs-undub-linux
           path: ie-gcs-undub-linux
 
-      - name: Archive MacOS binary artifact
-        if: matrix.os == 'macos-latest'
-        uses: actions/upload-artifact@v3
-        with:
-          name: ie-gcs-undub-macos
-          path: ie-gcs-undub-macos
-
       - name: Archive Windows binary artifact
         if: matrix.os == 'windows-latest'
         uses: actions/upload-artifact@v3
         with:
           name: ie-gcs-undub-windows
           path: ie-gcs-undub-windows
+          
+      - name: Archive MacOS binary artifact
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ie-gcs-undub-macos
+          path: ie-gcs-undub-macos
