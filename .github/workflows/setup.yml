@@ -27,7 +27,7 @@ jobs:
       - name: Bundling the executable
         run: pyinstaller --onefile src/main.py
 
-      - name: Packing the executable
+      - name: Packing the Linux executable
         if: matrix.os == 'ubuntu-latest'
         run: |
           mkdir ie-gcs-undub-linux
@@ -35,9 +35,9 @@ jobs:
           mv dist/main ie-gcs-undub-linux/main
           mv .env ie-gcs-undub-linux/.env
           mv lib/* ie-gcs-undub-linux/lib
-          zip -r ie-gcs-undub-linux.zip ie-gcs-undub-linux/
+          # zip -r ie-gcs-undub-linux.zip ie-gcs-undub-linux/
 
-      - name: Packing the executable
+      - name: Packing the MacOS executable
         if: matrix.os == 'macos-latest'
         run: |
           mkdir ie-gcs-undub-macos
@@ -45,7 +45,17 @@ jobs:
           mv dist/main ie-gcs-undub-macos/main
           mv .env ie-gcs-undub-macos/.env
           mv lib/* ie-gcs-undub-macos/lib
-          zip -r ie-gcs-undub-macos.zip ie-gcs-undub-macos/
+          # zip -r ie-gcs-undub-macos.zip ie-gcs-undub-macos/
+
+      - name: Packing the Windows executable
+        if: matrix.os == 'windows-latest'
+        run: |
+          mkdir ie-gcs-undub-windows
+          mkdir ie-gcs-undub-windows/lib
+          mv dist/main.exe ie-gcs-undub-windows/main.exe
+          mv .env ie-gcs-undub-windows/.env
+          mv lib/ ie-gcs-undub-windows/lib
+          # zip -r ie-gcs-undub-windows.zip ie-gcs-undub-windows/
 
       - name: Archive Linux binary artifact
         if: matrix.os == 'ubuntu-latest'
@@ -60,3 +70,10 @@ jobs:
         with:
           name: ie-gcs-undub-macos
           path: ie-gcs-undub-macos
+
+      - name: Archive Windows binary artifact
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ie-gcs-undub-windows
+          path: ie-gcs-undub-windows
