@@ -25,7 +25,7 @@ jobs:
       # Added a --no-jaspin-ouput to the script for the Windows runner.
       - name: Install librairies for Windows without jaspin output
         if: matrix.os == 'windows-latest'
-        run: python setup-libraries.py --no-jaspin-ouput
+        run: python setup-libraries.py --no-jaspin-output
 
       - name: Install librairies for non Windows runner
         if: matrix.os != 'windows-latest'
