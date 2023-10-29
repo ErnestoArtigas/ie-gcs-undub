@@ -2,18 +2,30 @@
 
 ## Description
 
-This project is aim to generate an European CIA file with Japanese dubbing. It takes a Japanese CIA and an European CIA as input files. The program works in three steps :
+This project is aim to generate an European CIA file with Japanese dubbing. It takes a Japanese CIA and an European CIA as input files.
 
-- Extracting both CIA files into distinct folders, Decrypting the CCIs and RomFS of both roms.
+## Usage
 
-- Iterating into the European ```romfs/snd/product/stream``` folder and replacing the files that exists in the Japanese release.
+Download your OS specific release, unzip it and use like this :
 
-- Repacking the European RomFS, the CCIs and repacking everything into a CIA file.
+```
+main -j path/to/japanese_rom.cia -e path/to/european_rom.cia
+```
 
+```
+Options:
+  -h, --help            show this help message and exit
+  -j JAPANESE_ROM, --japanese-rom=JAPANESE_ROM 
+                        Path of the japanese rom
+  -e EUROPEAN_ROM, --european-rom=EUROPEAN_ROM
+                        Path of the european rom
+```
 
-## Dependencies
+## Building
 
-1 - Python modules :
+### Dependencies
+
+#### Python modules :
 - colorama
 - yaspin
 - python-dotenv
@@ -25,7 +37,7 @@ The python modules are listed in the [requirements.txt](requirements.txt) you ca
 python -m pip install -r requirements.txt
 ```
 
-2 - Libraries :
+#### Libraries :
 - [3dstool](https://github.com/dnasdw/3dstool)
 - [ctrtool](https://github.com/3DSGuy/Project_CTR/releases/tag/ctrtool-v1.2.0)
 - [makerom](https://github.com/3DSGuy/Project_CTR/releases/tag/makerom-v0.18.3)
@@ -36,11 +48,22 @@ A script was written to download and set the env file with the right values. The
 python setup-libraries.py
 ```
 
-## Usage
+For Powershell scripting (Github Action with a windows runner, out-null or > $null option), there is a ```--no-yaspin-output``` argument for avoiding Yaspin crashes.
 
 ```
-Usage: main.py -j path/to/japanese_rom.cia -e path/to/european_rom.cia
+python setup-libraries.py --no-yaspin-output
+```
 
+If you already have the three programs installed, you can edit the .env file and change each program's path. For the moment, only relative paths are working.
+
+
+### Usage
+
+```
+src/main.py -j path/to/japanese_rom.cia -e path/to/european_rom.cia
+```
+
+```
 Options:
   -h, --help            show this help message and exit
   -j JAPANESE_ROM, --japanese-rom=JAPANESE_ROM 
@@ -49,7 +72,7 @@ Options:
                         Path of the european rom
 ```
 
-#### Roms
+## Roms
 Here are the MD5 of the files used for testing this program. They were all extracted from a modded 3DS with GodMode9. There shouldn't be problems of mismatch version, this list is just for giving more informations.
 
 - **Inazuma Eleven Go - Chrono Stone - Neppuu.cia** : 5d1a0250d2b78bdeb61adf99ea3a1291
@@ -60,9 +83,15 @@ Here are the MD5 of the files used for testing this program. They were all extra
 
 You can use a Neppuu rom for undubbing Thunderflash and vice versa, both games have the audio for both game.
 
-#### Libraries
+## Technical description
 
-You need to download the three programs listed in [the dependencies section](#dependencies). Edit the .env file and changed the path for the location of the three programs. You can enter an absolute path to the program or place them in the ```lib``` folder and add a relative path in the .env.
+The program works in three steps :
+
+- Extracting both CIA files into distinct folders, Decrypting the CCIs and RomFS of both roms.
+
+- Iterating into the European ```romfs/snd/product/stream``` folder and replacing the files that exists in the Japanese release.
+
+- Repacking the European RomFS, the CCIs and repacking everything into a CIA file.
 
 ## Issues
 

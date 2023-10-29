@@ -1,3 +1,4 @@
+name: Building and creating a release
 on:
   push:
     tags:
@@ -101,9 +102,6 @@ jobs:
 
       - name: Download artefacts
         uses: actions/download-artifact@v3
-        
-      - name: Display structure of downloaded files
-        run: ls -R
 
       - name: Zip all releases
         run: |
