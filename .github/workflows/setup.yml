@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v4.1.1
 
       - name: Setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v4.7.1
         with:
           python-version: '3.12'
 
@@ -47,7 +47,7 @@ jobs:
           mkdir ie-gcs-undub-windows/lib
           mv dist/main.exe ie-gcs-undub-windows/main.exe
           mv .env ie-gcs-undub-windows/.env
-          mv lib/ ie-gcs-undub-windows/lib
+          mv lib/ ie-gcs-undub-windows/lib/
           # zip -r ie-gcs-undub-windows.zip ie-gcs-undub-windows/
 
       - name: Packing the MacOS executable
