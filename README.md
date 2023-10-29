@@ -2,20 +2,30 @@
 
 ## Description
 
-This project is aim to generate an European CIA file with Japanese dubbing. It takes a Japanese CIA and an European CIA as input files. The program works in three steps :
+This project is aim to generate an European CIA file with Japanese dubbing. It takes a Japanese CIA and an European CIA as input files.
 
-- Extracting both CIA files into distinct folders, Decrypting the CCIs and RomFS of both roms.
+## Usage
 
-- Iterating into the European ```romfs/snd/product/stream``` folder and replacing the files that exists in the Japanese release.
-  - It for the moment only verify if files with prefixes (en, fr, ...) exists without prefix in the Japanese release and move the Japanese version into the European folder, renaming it with the proper prefix.
-  - This method doesn't copy the credits cutscene's music and doesn't copy the music from the Japanese release. They are the same music, however the sound is lower in Japanese. When modding the game with this method, some voices can be too low because of the European music higher volume.
+Download your [OS specific release](https://github.com/ErnestoArtigas/ie-gcs-undub/releases/), unzip it and use like this :
 
-- Repacking the European RomFS, the CCIs and repacking everything into a CIA file.
+```
+main -j path/to/japanese_rom.cia -e path/to/european_rom.cia
+```
 
+```
+Options:
+  -h, --help            show this help message and exit
+  -j JAPANESE_ROM, --japanese-rom=JAPANESE_ROM 
+                        Path of the japanese rom
+  -e EUROPEAN_ROM, --european-rom=EUROPEAN_ROM
+                        Path of the european rom
+```
 
-## Dependencies
+## Building
 
-1 - Python modules :
+### Dependencies
+
+#### Python modules :
 - colorama
 - yaspin
 - python-dotenv
@@ -27,7 +37,7 @@ The python modules are listed in the [requirements.txt](requirements.txt) you ca
 python -m pip install -r requirements.txt
 ```
 
-2 - Libraries :
+#### Libraries :
 - [3dstool](https://github.com/dnasdw/3dstool)
 - [ctrtool](https://github.com/3DSGuy/Project_CTR/releases/tag/ctrtool-v1.2.0)
 - [makerom](https://github.com/3DSGuy/Project_CTR/releases/tag/makerom-v0.18.3)
@@ -35,14 +45,25 @@ python -m pip install -r requirements.txt
 A script was written to download and set the env file with the right values. The script is cross-plateform.
 
 ```
-python setup-librairies.py
+python setup-libraries.py
 ```
 
-## Usage
+For Powershell scripting (Github Action with a windows runner, out-null or > $null option), there is a ```--no-yaspin-output``` argument for avoiding Yaspin crashes.
 
 ```
-Usage: main.py -j path/to/japanese_rom.cia -e path/to/european_rom.cia
+python setup-libraries.py --no-yaspin-output
+```
 
+If you already have the three programs installed, you can edit the .env file and change each program's path. For the moment, only relative paths are working.
+
+
+### Usage
+
+```
+src/main.py -j path/to/japanese_rom.cia -e path/to/european_rom.cia
+```
+
+```
 Options:
   -h, --help            show this help message and exit
   -j JAPANESE_ROM, --japanese-rom=JAPANESE_ROM 
@@ -51,7 +72,7 @@ Options:
                         Path of the european rom
 ```
 
-#### Roms
+## Roms
 Here are the MD5 of the files used for testing this program. They were all extracted from a modded 3DS with GodMode9. There shouldn't be problems of mismatch version, this list is just for giving more informations.
 
 - **Inazuma Eleven Go - Chrono Stone - Neppuu.cia** : 5d1a0250d2b78bdeb61adf99ea3a1291
@@ -62,9 +83,15 @@ Here are the MD5 of the files used for testing this program. They were all extra
 
 You can use a Neppuu rom for undubbing Thunderflash and vice versa, both games have the audio for both game.
 
-#### Libraries
+## Technical description
 
-You need to download the three programs listed in [the dependencies section](#dependencies). Edit the .env file and changed the path for the location of the three programs. You can enter an absolute path to the program or place them in the ```lib``` folder and add a relative path in the .env.
+The program works in three steps :
+
+- Extracting both CIA files into distinct folders, Decrypting the CCIs and RomFS of both roms.
+
+- Iterating into the European ```romfs/snd/product/stream``` folder and replacing the files that exists in the Japanese release.
+
+- Repacking the European RomFS, the CCIs and repacking everything into a CIA file.
 
 ## Issues
 
@@ -74,7 +101,14 @@ There are three missing 4 missing files in the Japanese release, this is the lis
 - se_ev03_0580.bcstm = Capture Mode of Team Omega.
 - se_ev08_0260.bcstm = Ambient crowd.
 
-Because of the method of replacing only the sound file with regional prefix, the credits songs are not copied over the undubbed. This will be quickly fix.
+Because of the method of replacing only the sound file with regional prefix, the credits songs are not copied over the undubbed.
+
+This method doesn't copy the credits cutscene's music and doesn't copy the music from the Japanese release. They are the same music, however the sound is lower in Japanese. When modding the game with this method, some voices can be too low because of the European music higher volume.
+
+These are the two methods I have in mind for fixing this problem :
+
+- Having a list of file to only replaces these ones. This would be the most time consuming method because of testing which files are needed.
+- Replace every audio file from the Japanese version to the European ones. This would be the slowest method because of the amount of files to replace, but would ensure you have the exact same volume between the Japanese and European version. It wouldn't fixe the 4 missing file in the European version though.
 
 ## Roots
 

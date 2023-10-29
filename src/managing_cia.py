@@ -6,6 +6,7 @@ Licence GNU General Public Licence v3.0.
 
 import dotenv
 import os
+import sys
 from colorama_print_wrapper import print_red_text, print_green_text
 from yaspin_subprocess_wrapper import spinner_with_subprocess_error_handling
 
@@ -158,7 +159,7 @@ def unpack_cia(file_name, absolute_file_path):
     print_green_text(f"Created {file_name}_unpacked folder.")
   except Exception as error:
     print_red_text(str(error))
-    exit(1)
+    sys.exit(1)
 
   # Extract Decrypted CCIs.
   extracting_ccis(file_name, absolute_file_path)

@@ -1,5 +1,11 @@
 .vscode
 venv
 lib/*
+!lib/.gitkeep
 essential_replaced_files.txt
 src/__pycache__
+*_unpacked
+
+build
+dist
+main.spec

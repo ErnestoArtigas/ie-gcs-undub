@@ -7,6 +7,7 @@ Licence GNU General Public Licence v3.0.
 import dotenv
 import os
 import shutil
+import sys
 from colorama_print_wrapper import print_red_text, print_green_text
 from managing_cia import unpack_cia, repack_cia
 from optparse import OptionParser
@@ -41,7 +42,7 @@ def replace_european_romfs_files(japanese_path_name, european_path_name):
     except Exception as error:
       spinner.fail("❌")
       print_red_text(str(error))
-      exit(1)
+      sys.exit(1)
 
   return
 
@@ -62,7 +63,7 @@ def main():
     ):
     print_red_text("Missing argument, you need to provide the path of both rom.")
     print_green_text(f"Usage > {parser.usage}")
-    exit(1)
+    sys.exit(1)
 
   if (
       options.japanese_rom.isdigit() or
@@ -70,7 +71,17 @@ def main():
     ):
     print_red_text("The arguments provided are not string. You need to enter valid arguments.")
     print_green_text(f"Usage > {parser.usage}")
-    exit(1)
+    sys.exit(1)
+
+  if (
+      os.getenv("3DSTOOL_PATH") == None or
+      os.getenv("CTRTOOL_PATH") == None or
+      os.getenv("MAKEROM_PATH") == None
+  ):
+    print_red_text("Missing librairies in the env file, please run the setup-librairies script.")
+    print_green_text(f"python setup-librairies.py")
+    sys.exit(1)
+
 
   absolute_path_japanese_rom = os.path.abspath(options.japanese_rom)
   japanese_rom_file = absolute_path_japanese_rom.split(os.path.sep)[-1]

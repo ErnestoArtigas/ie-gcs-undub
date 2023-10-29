@@ -6,7 +6,6 @@ Licence GNU General Public Licence v3.0.
 
 import colorama
 
-
 def print_colored_text(color, content):
   print(color + content + colorama.Style.RESET_ALL)
 

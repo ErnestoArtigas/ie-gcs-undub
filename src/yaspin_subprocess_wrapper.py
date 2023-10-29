@@ -6,6 +6,7 @@ Licence GNU General Public Licence v3.0.
 
 import os
 import subprocess
+import sys
 from colorama_print_wrapper import print_red_text
 from yaspin import yaspin
 
@@ -22,4 +23,4 @@ def spinner_with_subprocess_error_handling(spinner_text, subprocess_arguments):
     else:
       spinner.fail("❌")
       print_red_text(stdout.decode())
-      exit(1)
+      sys.exit(1)

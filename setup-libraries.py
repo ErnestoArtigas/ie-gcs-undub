@@ -13,6 +13,7 @@ import tarfile
 sys.path.append(os.path.join(os.getcwd(), "src"))
 from colorama_print_wrapper import print_red_text
 from downloader import download_files, unzip
+from optparse import OptionParser
 from yaspin import yaspin
 
 
@@ -20,30 +21,47 @@ dotenv_file = dotenv.find_dotenv()
 dotenv.load_dotenv()
 
 
-def extract_tar_gz_file(lib_path, tar_gz_file):
-  with yaspin(text=f"{tar_gz_file} extracting...", color="green") as spinner:
+def extract_tar_gz_file(lib_path, tar_gz_file, jaspin_output):
+  if (not jaspin_output):
     try:
       tar = tarfile.open(os.path.join(lib_path, tar_gz_file), "r:gz")
       tar.extractall(lib_path)
       tar.close()
       os.remove(os.path.join(lib_path, tar_gz_file))
-      spinner.ok("✅")
     except Exception as error:
-      spinner.fail("❌")
       print_red_text(str(error))
-      exit(1)
+      sys.exit(1)
+  else:
+    with yaspin(text=f"{tar_gz_file} extracting...", color="green") as spinner:
+      try:
+        tar = tarfile.open(os.path.join(lib_path, tar_gz_file), "r:gz")
+        tar.extractall(lib_path)
+        tar.close()
+        os.remove(os.path.join(lib_path, tar_gz_file))
+        spinner.ok("✅")
+      except Exception as error:
+        spinner.fail("❌")
+        print_red_text(str(error))
+        sys.exit(1)
 
-
-def extract_zip_file(lib_path, zip_file):
-  with yaspin(text=f"{zip_file} extracting...", color="green") as spinner:
+def extract_zip_file(lib_path, zip_file, jaspin_output):
+  if (not jaspin_output):
     try:
       unzip(os.path.join(lib_path, zip_file), lib_path)
       os.remove(os.path.join(lib_path, zip_file))
-      spinner.ok("✅")
     except Exception as error:
-      spinner.fail("❌")
       print_red_text(str(error))
-      exit(1)
+      sys.exit(1)
+  else:
+    with yaspin(text=f"{zip_file} extracting...", color="green") as spinner:
+      try:
+        unzip(os.path.join(lib_path, zip_file), lib_path)
+        os.remove(os.path.join(lib_path, zip_file))
+        spinner.ok("✅")
+      except Exception as error:
+        spinner.fail("❌")
+        print_red_text(str(error))
+        sys.exit(1)
 
 
 def create_download_links_dictionary():
@@ -91,6 +109,13 @@ def assign_specific_os_executable_to_dictionary(dictionary, key):
 
 
 def main():
+  parser = OptionParser()
+  parser.add_option(
+    "--no-jaspin-output", dest="jaspin_output", action="store_false", 
+    default=True,help="No jaspin output, used for Windows Github runners", metavar="NO_JASPIN_OUPUT"
+  )
+  (options, _) = parser.parse_args()
+
   download_links = create_download_links_dictionary()
 
   download_files("lib", list(download_links.values()))
@@ -107,14 +132,14 @@ def main():
   zip_files = list(filter((lambda x: "zip" in x), archive_files))
 
   for tar_gz_file in tar_gz_files:
-    extract_tar_gz_file(lib_path, tar_gz_file)
+    extract_tar_gz_file(lib_path, tar_gz_file, options.jaspin_output)
 
   for zip_file in zip_files:
-    extract_zip_file(lib_path, zip_file)
+    extract_zip_file(lib_path, zip_file, options.jaspin_output)
 
   # Update the env file with the right executable.
   for key in download_links:
-    set_env_variable(key, os.path.abspath(download_links[key]))
+    set_env_variable(key, download_links[key])
 
 
 if __name__ == "__main__":
