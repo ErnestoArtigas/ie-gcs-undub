@@ -48,7 +48,6 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           mkdir ie-gcs-undub-windows
-          mkdir ie-gcs-undub-windows/lib
           mv dist/main.exe ie-gcs-undub-windows/main.exe
           mv .env ie-gcs-undub-windows/.env
           mv lib/ ie-gcs-undub-windows/lib/
