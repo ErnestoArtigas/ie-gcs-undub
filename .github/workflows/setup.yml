@@ -87,6 +87,8 @@ jobs:
   create-release:
     name: Create a release with the previous built artefacts
     runs-on: ubuntu-latest
+    needs: building-multi-os-artefacts
+    if: ${{ always() && !cancelled() && needs.building-multi-os-artefacts.result == 'success' }}
 
     steps:
       - name: Checkout repo
