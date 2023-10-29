@@ -18,13 +18,17 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Setup for Windows jupyter
+        if: matrix.os == 'windows-latest'
+        run: chcp 65001
+
       - name: Install python requirements
         run: python -m pip install pyinstaller -r requirements.txt
 
       # Colorama doesn't work on Jupyter notebook on Windows runner.
       # Need a continue-on-error to avoid blocking the functional ci.
       - name: Install librairies
-        continue-on-error: true
+        # continue-on-error: true
         run: python setup-libraries.py
 
       - name: Bundling the executable
