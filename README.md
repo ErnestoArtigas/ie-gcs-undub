@@ -6,7 +6,7 @@ This project is aim to generate an European CIA file with Japanese dubbing. It t
 
 ## Usage
 
-Download your OS specific release, unzip it and use like this :
+Download your [OS specific release](https://github.com/ErnestoArtigas/ie-gcs-undub/releases/), unzip it and use like this :
 
 ```
 main -j path/to/japanese_rom.cia -e path/to/european_rom.cia
@@ -101,9 +101,14 @@ There are three missing 4 missing files in the Japanese release, this is the lis
 - se_ev03_0580.bcstm = Capture Mode of Team Omega.
 - se_ev08_0260.bcstm = Ambient crowd.
 
-Because of the method of replacing only the sound file with regional prefix, the credits songs are not copied over the undubbed. This will be quickly fix.
+Because of the method of replacing only the sound file with regional prefix, the credits songs are not copied over the undubbed.
 
 This method doesn't copy the credits cutscene's music and doesn't copy the music from the Japanese release. They are the same music, however the sound is lower in Japanese. When modding the game with this method, some voices can be too low because of the European music higher volume.
+
+These are the two methods I have in mind for fixing this problem :
+
+- Having a list of file to only replaces these ones. This would be the most time consuming method because of testing which files are needed.
+- Replace every audio file from the Japanese version to the European ones. This would be the slowest method because of the amount of files to replace, but would ensure you have the exact same volume between the Japanese and European version. It wouldn't fixe the 4 missing file in the European version though.
 
 ## Roots
 
