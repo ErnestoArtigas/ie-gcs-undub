@@ -99,3 +99,17 @@ jobs:
         
       - name: Display structure of downloaded files
         run: ls -R
+
+      - name: Zip all releases
+        run: |
+          zip -r ie-gcs-undub-linux.zip ie-gcs-undub-linux/
+          zip -r ie-gcs-undub-windows.zip ie-gcs-undub-windows/
+          zip -r ie-gcs-undub-macos.zip ie-gcs-undub-macos/
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ie-gcs-undub-linux.zip
+            ie-gcs-undub-windows.zip
+            ie-gcs-undub-macos.zip
